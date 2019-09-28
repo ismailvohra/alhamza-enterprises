@@ -1,0 +1,60 @@
+﻿@model IEnumerable<AlHamzaEnterprises.Models.Attendance>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+@using (Html.BeginForm("Index", "Attendances", FormMethod.Get))
+{
+    <b>Search Option: </b>
+    @Html.DropDownList("search", ViewBag.UserList as SelectList, "--Select Name--")
+    <input type="submit" name="submit" value="Search"/>
+}
+
+<input type="button" value="View All" onclick="@("window.location.href=:" + @Url.Action("Index", "Attendances") + "'");"/>
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Present)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CheckIn)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.User.UserName)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Date)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Present)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CheckIn)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.User.UserName)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.AttendenceID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.AttendenceID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.AttendenceID })
+        </td>
+    </tr>
+}
+
+</table>
